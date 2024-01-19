@@ -67,9 +67,7 @@ For single input case, the function `place()` in MATLAB is used directly. Of cou
 First judge if the matrix is cyclic (characteristic polynomial = minimal polynomial). If it is cyclic, then use the above theorem to get the controller K.
 
 Random number generator is used to generate the vector V. We need to ensure that the pair (A, BV) is controllable. Therefore if the pair (A, B) is not controllable, V will be generated again until the pair (A, BV) is controllable. Then use MATLAB function `place()` or Bass-Gura formula to get the controller K_init for the pair(A, BV). Finally, 
-$$
-K = V  K_{init}
-$$
+$K = V  K_{init}$
 
 
 ### MI & Non-cyclic
@@ -79,30 +77,27 @@ So I use the Jordan form of A to solve this problem. Repeated eigenvalues of A a
 
 If we do eigen decomposition of A - BK, we can get the following equation:
 
-$$
-A - B\,K = V\,\Lambda\,V^{-1}
-$$
+$A - B\,K = V\,\Lambda\,V^{-1}$
+
 with $A, \Lambda, V \in R^{n \times n}, B \in R^{n \times p}, K \in R^{p \times n}$, where $\Lambda$ is a diagonal matrix with eigenvalues of A - BK on the diagonal.
 
 Then the largest number of columns of V (eigenvectors) that can be chosen freely should equal:
-$$
-number \le \displaystyle\frac{n(p-1)}{n-1}
-$$
+
+$number \le \displaystyle\frac{n(p-1)}{n-1}$
 
 
 Let $\Omega = KV$ which is chosen randomly.
 
 For each jordan block of repeated eigenvalues, the corresponding columns of $V$ can be calculated by the following equation:
 
-$$
-V_{\bullet,i} = (A - \Lambda_{i,i}\,I)^{-1} B\,\Omega_{\bullet,i} \\
-V_{\bullet,i+k} = (A - \Lambda_{i,i}\,I)^{-1} (B\,\Omega_{\bullet,i+k} + V_{\bullet,i+k-1})
-$$
+$V_{\bullet,i} = (A - \Lambda_{i,i}\,I)^{-1} B\,\Omega_{\bullet,i}$
+
+$V_{\bullet,i+k} = (A - \Lambda_{i,i}\,I)^{-1} (B\,\Omega_{\bullet,i+k} + V_{\bullet,i+k-1})$
 
 After calculating each columns of $V$, we can get the controller K by the following equation: 
-$$
-K = \Omega V^{-1}
-$$
+
+$K = \Omega V^{-1}$
+
 Since the combination of repeated eigenvalues is not unique, we need to calculate the controller K for each combination.
 
 ## Future Plan
